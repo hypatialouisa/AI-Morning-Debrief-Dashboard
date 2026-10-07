@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "legora-newsroom",
+      "name": "Legora",
+      "url": "https://legora.com/newsroom",
+      "panel": "source",
+      "categories": ["legora"],
+      "status": "approved",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "pass", "note": "No separate changelog/release-notes page found. Newsroom alone covers Panel A." }
+    },
+    {
+      "id": "openai-news",
+      "name": "OpenAI",
+      "url": "https://openai.com/news/",
+      "panel": "source",
+      "categories": ["chatgpt"],
+      "status": "approved",
+      "paywall_check": { "checked": false, "verified_on": "2026-10-07", "result": "not_applicable", "note": "Plain fetch blocked with HTTP 403 (bot protection, not a paywall). Known free page. Collector will need a browser-based fetch here, not a raw HTTP request." }
+    },
+    {
+      "id": "chatgpt-release-notes",
+      "name": "OpenAI",
+      "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+      "panel": "source",
+      "categories": ["chatgpt"],
+      "status": "approved",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "pass", "note": "" }
+    },
+    {
+      "id": "status-openai",
+      "name": "OpenAI",
+      "url": "https://status.openai.com",
+      "panel": "source",
+      "categories": ["chatgpt"],
+      "status": "approved",
+      "paywall_check": { "checked": false, "verified_on": "2026-10-07", "result": "not_applicable", "note": "Standard public status page, not separately fetch-tested." }
+    },
+    {
+      "id": "anthropic-news",
+      "name": "Anthropic",
+      "url": "https://www.anthropic.com/news",
+      "panel": "source",
+      "categories": ["claude"],
+      "status": "approved",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "pass", "note": "" }
+    },
+    {
+      "id": "claude-release-notes",
+      "name": "Anthropic",
+      "url": "https://platform.claude.com/docs/release-notes/overview",
+      "panel": "source",
+      "categories": ["claude"],
+      "status": "approved",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "pass", "note": "" }
+    },
+    {
+      "id": "status-claude",
+      "name": "Anthropic",
+      "url": "https://status.claude.com",
+      "panel": "source",
+      "categories": ["claude"],
+      "status": "approved",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "pass", "note": "Confirmed live, 'All Systems Operational'. status.anthropic.com now 301-redirects here, so this is the canonical URL." }
+    },
+    {
+      "id": "anthropic-prompting-guide",
+      "name": "Anthropic",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview",
+      "panel": "source",
+      "categories": ["best_practices"],
+      "status": "approved",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "pass", "note": "Docs moved from docs.anthropic.com to platform.claude.com; this is the current canonical URL." }
+    },
+    {
+      "id": "openai-prompting-guide",
+      "name": "OpenAI",
+      "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+      "panel": "source",
+      "categories": ["best_practices"],
+      "status": "approved",
+      "paywall_check": { "checked": false, "verified_on": "2026-10-07", "result": "not_applicable", "note": "Not separately fetch-tested, standard public OpenAI platform docs." }
+    },
+    {
+      "id": "the-verge",
+      "name": "The Verge",
+      "url": "https://www.theverge.com",
+      "panel": "outside",
+      "categories": ["legora", "chatgpt", "claude"],
+      "status": "approved",
+      "paywall_check": { "checked": false, "verified_on": null, "result": "not_applicable", "note": "Previously approved, not in this round's verify list." }
+    },
+    {
+      "id": "ars-technica",
+      "name": "Ars Technica",
+      "url": "https://arstechnica.com",
+      "panel": "outside",
+      "categories": ["legora", "chatgpt", "claude"],
+      "status": "approved",
+      "paywall_check": { "checked": false, "verified_on": null, "result": "not_applicable", "note": "Previously approved, not in this round's verify list." }
+    },
+    {
+      "id": "reuters",
+      "name": "Reuters",
+      "url": "https://www.reuters.com/technology/artificial-intelligence/",
+      "panel": "outside",
+      "categories": ["legora", "chatgpt", "claude"],
+      "status": "removed",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "fail", "note": "Fetch blocked outright (not reachable with our tools), and Reuters runs a subscription paywall on most content. Dropped." }
+    },
+    {
+      "id": "wired",
+      "name": "Wired",
+      "url": "https://www.wired.com/tag/artificial-intelligence/",
+      "panel": "outside",
+      "categories": ["legora", "chatgpt", "claude"],
+      "status": "removed",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "fail", "note": "Fetch blocked outright, and Wired runs a metered paywall. Dropped." }
+    },
+    {
+      "id": "mit-technology-review",
+      "name": "MIT Technology Review",
+      "url": "https://www.technologyreview.com",
+      "panel": "outside",
+      "categories": ["legora", "chatgpt", "claude"],
+      "status": "approved",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "pass", "note": "Tested article loaded in full free. MIT Tech Review has a mixed model though, some feature pieces are subscriber-only." }
+    },
+    {
+      "id": "techcrunch",
+      "name": "TechCrunch",
+      "url": "https://techcrunch.com",
+      "panel": "outside",
+      "categories": ["legora", "chatgpt", "claude"],
+      "status": "approved",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "pass", "note": "Full text loads free, no paywall." }
+    },
+    {
+      "id": "venturebeat",
+      "name": "VentureBeat",
+      "url": "https://venturebeat.com",
+      "panel": "outside",
+      "categories": ["legora", "chatgpt", "claude"],
+      "status": "approved",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "pass", "note": "Full text loads free, only a newsletter signup prompt." }
+    },
+    {
+      "id": "artificial-lawyer",
+      "name": "Artificial Lawyer",
+      "url": "https://www.artificiallawyer.com",
+      "panel": "outside",
+      "categories": ["legora", "legal_ai_practice"],
+      "status": "approved",
+      "paywall_check": { "checked": false, "verified_on": "2026-10-07", "result": "not_applicable", "note": "URL confirmed, previously approved, not in this round's verify list." }
+    },
+    {
+      "id": "legal-it-insider",
+      "name": "Legal IT Insider",
+      "url": "https://legaltechnology.com",
+      "panel": "outside",
+      "categories": ["legora", "legal_ai_practice"],
+      "status": "approved",
+      "paywall_check": { "checked": false, "verified_on": "2026-10-07", "result": "not_applicable", "note": "URL confirmed, previously approved, not in this round's verify list." }
+    },
+    {
+      "id": "law-com",
+      "name": "Law.com (Legaltech News)",
+      "url": "https://www.law.com/legaltechnews/",
+      "panel": "outside",
+      "categories": ["legora", "legal_ai_practice"],
+      "status": "removed",
+      "paywall_check": { "checked": true, "verified_on": "2026-10-07", "result": "fail", "note": "Fetched a live article directly: one paragraph then an 'Exclusive Content' account wall. Confirmed paywalled, dropped." }
+    },
+    {
+      "id": "ethan-mollick",
+      "name": "Ethan Mollick, One Useful Thing",
+      "url": "https://www.oneusefulthing.org",
+      "panel": "outside",
+      "categories": ["best_practices"],
+      "status": "approved",
+      "paywall_check": { "checked": false, "verified_on": "2026-10-07", "result": "not_applicable", "note": "URL confirmed, known free." }
+    },
+    {
+      "id": "simon-willison",
+      "name": "Simon Willison's blog",
+      "url": "https://simonwillison.net",
+      "panel": "outside",
+      "categories": ["best_practices"],
+      "status": "approved",
+      "paywall_check": { "checked": false, "verified_on": null, "result": "not_applicable", "note": "Previously approved, known free." }
+    },
+    {
+      "id": "stanford-hai",
+      "name": "Stanford HAI",
+      "url": "https://hai.stanford.edu",
+      "panel": "outside",
+      "categories": ["best_practices"],
+      "status": "approved",
+      "paywall_check": { "checked": false, "verified_on": null, "result": "not_applicable", "note": "Previously approved, known free." }
+    }
+  ]
+}

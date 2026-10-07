@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Morning Debrief</title>
+<style>
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  :root {
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-bg-dark: #170310;
+    --color-bg-light: #F4F1F8;
+    --color-lavender: #A59FF7;
+    --color-indigo: #5B6EE6;
+    --color-indigo-deep: #475CE3;
+    --color-crimson: #A40045;
+    --color-crimson-bright: #F50067;
+    --color-berry: #660935;
+    --color-amber: #CC7A3A;
+    --color-gold: #D9A23D;
+    --color-emerald: #3F8F6B;
+    --color-dark-gray: #6E5F68;
+    --color-mid-gray: #9A8792;
+    --color-light-gray: #DCD5DE;
+
+    --bg: var(--color-bg-dark);
+    --bg-raised: #2B0817;
+    --text: var(--color-white);
+    --text-secondary: var(--color-mid-gray);
+    --accent: var(--color-crimson);
+    --accent-hover: var(--color-indigo);
+    --accent-text: var(--color-white);
+    --accent-hover-text: var(--color-black);
+    --link: var(--color-crimson-bright);
+    --link-hover: var(--color-lavender);
+  }
+  :root[data-theme="light"] {
+    --bg: var(--color-bg-light);
+    --bg-raised: #E7E2EE;
+    --text: var(--color-black);
+    --text-secondary: var(--color-dark-gray);
+    --accent: var(--color-crimson);
+    --accent-hover: var(--color-indigo);
+    --accent-text: var(--color-white);
+    --accent-hover-text: var(--color-black);
+    --link: var(--color-crimson);
+    --link-hover: var(--color-indigo-deep);
+  }
+
+  * { box-sizing: border-box; }
+
+  body, p, input, button {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-weight: 700;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0 16px 48px;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { color: var(--link-hover); }
+  a:focus { color: var(--link); text-decoration: underline; }
+
+  header {
+    padding: 20px 0 12px;
+    border-bottom: 1px solid var(--color-mid-gray);
+    margin-bottom: 16px;
+  }
+  .title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .title-row h1 {
+    margin: 0;
+    font-size: 1.4rem;
+    letter-spacing: 0.02em;
+  }
+  .controls-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  button, .btn {
+    font-family: inherit;
+    font-size: 0.85rem;
+    background: var(--bg-raised);
+    color: var(--text);
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  button:hover, .btn:hover { background: var(--accent-hover); color: var(--accent-hover-text); }
+  button:focus-visible, .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button:active, .btn:active { background: var(--accent); color: var(--accent-text); }
+  button.primary { background: var(--accent); color: var(--accent-text); }
+  button.primary:hover { background: var(--accent-hover); color: var(--accent-hover-text); }
+
+  input[type="date"], input[type="text"] {
+    font-family: inherit;
+    background: var(--bg-raised);
+    color: var(--text);
+    border: 1px solid var(--color-mid-gray);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 0.85rem;
+  }
+
+  .weekday-strip {
+    display: flex;
+    gap: 6px;
+    margin: 12px 0 4px;
+    flex-wrap: wrap;
+  }
+  .weekday-dot {
+    flex: 1;
+    min-width: 56px;
+    text-align: center;
+    padding: 6px 4px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    background: transparent;
+  }
+  .weekday-dot.filled {
+    color: var(--text);
+    background: var(--bg-raised);
+  }
+  .weekday-dot.active {
+    background: var(--accent);
+    color: var(--accent-text);
+  }
+  .weekday-dot .d { display: block; font-weight: 700; margin-top: 2px; }
+
+  .notice {
+    background: var(--bg-raised);
+    border-left: 3px solid var(--color-amber);
+    color: var(--text);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    margin: 12px 0;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 16px 0 12px;
+  }
+  .tab {
+    border-radius: 4px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    background: transparent;
+    color: var(--text-secondary);
+  }
+  .tab:hover { background: var(--bg-raised); color: var(--text); }
+  .tab.active { background: var(--accent); color: var(--accent-text); font-weight: 700; }
+
+  .tag-filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 0 0 16px;
+  }
+  .tag-filter {
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    color: var(--color-white);
+    font-weight: 400;
+  }
+  .tag-filter.active {
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 760px) {
+    .panels { grid-template-columns: 1fr; }
+  }
+  .panel h2 {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--color-light-gray);
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+  .panel-empty {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    padding: 12px 0;
+  }
+
+  .item-card {
+    background: var(--bg-raised);
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .item-card:hover {
+    background: var(--accent);
+    color: var(--accent-text);
+  }
+  .item-card:hover a { color: var(--accent-text); text-decoration: underline; }
+  .item-card:hover .meta { color: var(--accent-text); opacity: 0.85; }
+
+  .tag-chip {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 7px;
+    border-radius: 10px;
+    color: var(--color-white);
+    margin-bottom: 6px;
+  }
+  .tag-Feature   { background: var(--color-crimson); }
+  .tag-Outage    { background: var(--color-amber); color: var(--color-black) !important; }
+  .tag-Pricing   { background: var(--color-gold); color: var(--color-black) !important; }
+  .tag-Policy    { background: var(--color-indigo); color: var(--color-black) !important; }
+  .tag-Legal     { background: var(--color-berry); }
+  .tag-Research  { background: var(--color-lavender); color: var(--color-black) !important; }
+  .tag-Opinion   { background: var(--color-emerald); color: var(--color-black) !important; }
+
+  .item-title { font-size: 1rem; font-weight: 700; margin: 0 0 4px; }
+  .item-title a { color: var(--text); }
+  .item-card:hover .item-title a { color: var(--accent-text); }
+  .meta { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 6px; }
+  .summary { font-size: 0.88rem; margin: 0 0 10px; line-height: 1.4; }
+  .item-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .item-controls input[type="text"] { flex: 1; }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-light-gray);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+  footer a { color: var(--text-secondary); }
+  footer a:hover { color: var(--link-hover); }
+  footer .sources-list { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 0; }
+  footer .sources-list a:not(:last-child)::after { content: " \00b7 "; color: var(--text-secondary); }
+
+  .export-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    padding: 12px;
+    background: var(--bg-raised);
+    border-radius: 6px;
+  }
+  .export-row span { font-size: 0.78rem; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-row">
+    <h1>AI MORNING DEBRIEF</h1>
+    <button id="theme-toggle">Light mode</button>
+  </div>
+  <div class="controls-row">
+    <button id="prev-day">&larr; Prev</button>
+    <input type="date" id="date-picker">
+    <button id="next-day">Next &rarr;</button>
+    <button id="today-btn" class="primary">Today</button>
+  </div>
+  <div class="weekday-strip" id="weekday-strip"></div>
+</header>
+
+<div id="notice-area"></div>
+
+<nav class="tabs" id="section-tabs"></nav>
+<div class="tag-filters" id="tag-filters"></div>
+
+<main id="panels-area"></main>
+
+<div class="export-row">
+  <span>Export:</span>
+  <button id="export-day">This day as JSON</button>
+  <span>Range:</span>
+  <input type="date" id="range-from">
+  <span>to</span>
+  <input type="date" id="range-to">
+  <button id="export-range">Export range as JSON</button>
+</div>
+
+<footer id="footer-sources">
+  <div>Sources</div>
+  <div class="sources-list" id="sources-list">Loading&hellip;</div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var SECTIONS = [
+    { key: "legora", label: "Legora" },
+    { key: "chatgpt", label: "ChatGPT" },
+    { key: "claude", label: "Claude" },
+    { key: "legal_ai_practice", label: "Legal AI practice" },
+    { key: "best_practices", label: "Best practices" }
+  ];
+  var TAGS = ["Feature", "Outage", "Pricing", "Policy", "Legal", "Research", "Opinion"];
+
+  var state = {
+    theme: "dark",
+    activeSection: "legora",
+    activeTags: {},        // tag -> true means "filtered to only this tag" (empty = show all)
+    currentDate: null,     // "YYYY-MM-DD" currently displayed
+    index: [],             // [{date, backfilled}]
+    dayCache: {},          // date -> parsed daily JSON (or null if 404/fetch failed)
+    session: {},           // itemId -> { checked: bool, note: string }
+    sourcesList: null      // cached sources.json
+  };
+
+  function easternToday() {
+    var parts = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit"
+    }).formatToParts(new Date());
+    var map = {};
+    parts.forEach(function (p) { map[p.type] = p.value; });
+    return map.year + "-" + map.month + "-" + map.day;
+  }
+
+  function isWeekend(dateStr) {
+    var d = new Date(dateStr + "T12:00:00");
+    var day = d.getDay();
+    return day === 0 || day === 6;
+  }
+
+  function addDays(dateStr, n) {
+    var d = new Date(dateStr + "T12:00:00");
+    d.setDate(d.getDate() + n);
+    return d.toISOString().slice(0, 10);
+  }
+
+  function lastNWeekdays(endDateStr, n) {
+    var out = [];
+    var d = endDateStr;
+    while (out.length < n) {
+      if (!isWeekend(d)) out.unshift(d);
+      d = addDays(d, -1);
+    }
+    return out;
+  }
+
+  function fetchJSON(path) {
+    return fetch(path, { cache: "no-store" }).then(function (res) {
+      if (!res.ok) return null;
+      return res.json();
+    }).catch(function () { return null; });
+  }
+
+  function loadIndex() {
+    return fetchJSON("data/index.json").then(function (data) {
+      state.index = (data && data.dates) ? data.dates : [];
+    });
+  }
+
+  function hasFile(dateStr) {
+    return state.index.some(function (e) { return e.date === dateStr; });
+  }
+
+  function loadDay(dateStr) {
+    if (Object.prototype.hasOwnProperty.call(state.dayCache, dateStr)) {
+      return Promise.resolve(state.dayCache[dateStr]);
+    }
+    return fetchJSON("data/daily/" + dateStr + ".json").then(function (data) {
+      state.dayCache[dateStr] = data;
+      return data;
+    });
+  }
+
+  function loadSources() {
+    if (state.sourcesList) return Promise.resolve(state.sourcesList);
+    return fetchJSON("data/sources.json").then(function (data) {
+      state.sourcesList = (data && data.sources) ? data.sources : [];
+      return state.sourcesList;
+    });
+  }
+
+  // ---------- rendering ----------
+
+  function renderWeekdayStrip() {
+    var today = easternToday();
+    var days = lastNWeekdays(today, 10);
+    var el = document.getElementById("weekday-strip");
+    el.innerHTML = "";
+    days.forEach(function (d) {
+      var filled = hasFile(d);
+      var btn = document.createElement("div");
+      btn.className = "weekday-dot" + (filled ? " filled" : "") + (d === state.currentDate ? " active" : "");
+      var dow = new Date(d + "T12:00:00").toLocaleDateString("en-US", { weekday: "short" });
+      var dom = new Date(d + "T12:00:00").getDate();
+      btn.innerHTML = dow + '<span class="d">' + dom + "</span>";
+      btn.title = d + (filled ? "" : " (no file)");
+      btn.addEventListener("click", function () { goToDate(d); });
+      el.appendChild(btn);
+    });
+  }
+
+  function renderTabs() {
+    var el = document.getElementById("section-tabs");
+    el.innerHTML = "";
+    SECTIONS.forEach(function (s) {
+      var btn = document.createElement("button");
+      btn.className = "tab" + (s.key === state.activeSection ? " active" : "");
+      btn.textContent = s.label;
+      btn.addEventListener("click", function () {
+        state.activeSection = s.key;
+        renderTabs();
+        renderPanels();
+      });
+      el.appendChild(btn);
+    });
+  }
+
+  function renderTagFilters() {
+    var el = document.getElementById("tag-filters");
+    el.innerHTML = "";
+    TAGS.forEach(function (tag) {
+      var btn = document.createElement("button");
+      var active = !!state.activeTags[tag];
+      btn.className = "tag-filter tag-" + tag + (active ? " active" : "");
+      btn.textContent = tag;
+      if (active) {
+        // use the chip's own background color when active
+      }
+      btn.addEventListener("click", function () {
+        state.activeTags[tag] = !state.activeTags[tag];
+        renderTagFilters();
+        renderPanels();
+      });
+      el.appendChild(btn);
+    });
+  }
+
+  function activeTagSet() {
+    var any = Object.keys(state.activeTags).some(function (k) { return state.activeTags[k]; });
+    if (!any) return null; // no filter, show everything
+    return state.activeTags;
+  }
+
+  function itemMatchesFilter(item) {
+    var filt = activeTagSet();
+    if (!filt) return true;
+    return !!filt[item.type_tag];
+  }
+
+  function renderNotice(dayData) {
+    var el = document.getElementById("notice-area");
+    el.innerHTML = "";
+    if (!dayData || !dayData.source_status) return;
+    var failed = dayData.source_status.filter(function (s) { return !s.ok; });
+    if (failed.length === 0) return;
+    var div = document.createElement("div");
+    div.className = "notice";
+    div.textContent = "Some sources failed today: " + failed.map(function (f) {
+      return f.source + (f.note ? " (" + f.note + ")" : "");
+    }).join(", ");
+    el.appendChild(div);
+  }
+
+  function itemCard(item) {
+    var card = document.createElement("div");
+    card.className = "item-card";
+
+    var tag = document.createElement("span");
+    tag.className = "tag-chip tag-" + item.type_tag;
+    tag.textContent = item.type_tag;
+    card.appendChild(tag);
+
+    var title = document.createElement("div");
+    title.className = "item-title";
+    var a = document.createElement("a");
+    a.href = item.url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = item.title;
+    title.appendChild(a);
+    card.appendChild(title);
+
+    var meta = document.createElement("div");
+    meta.className = "meta";
+    var pub = item.published_at ? new Date(item.published_at).toLocaleString("en-US", {
+      month: "short", day: "numeric", hour: "numeric", minute: "2-digit"
+    }) : "";
+    meta.textContent = item.source_name + (pub ? " · " + pub : "");
+    card.appendChild(meta);
+
+    var summary = document.createElement("p");
+    summary.className = "summary";
+    summary.textContent = item.summary;
+    card.appendChild(summary);
+
+    var controls = document.createElement("div");
+    controls.className = "item-controls";
+
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = !!(state.session[item.id] && state.session[item.id].checked);
+    checkbox.addEventListener("change", function () {
+      ensureSession(item.id).checked = checkbox.checked;
+    });
+    controls.appendChild(checkbox);
+
+    var note = document.createElement("input");
+    note.type = "text";
+    note.placeholder = "Note (optional)";
+    note.value = (state.session[item.id] && state.session[item.id].note) || "";
+    note.addEventListener("input", function () {
+      ensureSession(item.id).note = note.value;
+    });
+    controls.appendChild(note);
+
+    card.appendChild(controls);
+    return card;
+  }
+
+  function ensureSession(id) {
+    if (!state.session[id]) state.session[id] = { checked: false, note: "" };
+    return state.session[id];
+  }
+
+  function panelBlock(label, items) {
+    var panel = document.createElement("div");
+    panel.className = "panel";
+    var h = document.createElement("h2");
+    h.textContent = label;
+    panel.appendChild(h);
+
+    var filtered = items.filter(itemMatchesFilter);
+    if (filtered.length === 0) {
+      var empty = document.createElement("div");
+      empty.className = "panel-empty";
+      empty.textContent = "Nothing here.";
+      panel.appendChild(empty);
+      return panel;
+    }
+
+    filtered
+      .slice()
+      .sort(function (a, b) { return new Date(b.published_at) - new Date(a.published_at); })
+      .forEach(function (item) { panel.appendChild(itemCard(item)); });
+
+    return panel;
+  }
+
+  function renderPanels() {
+    var area = document.getElementById("panels-area");
+    area.innerHTML = "";
+    var dayData = state.dayCache[state.currentDate];
+
+    renderNotice(dayData);
+
+    var wrap = document.createElement("div");
+    wrap.className = "panels";
+
+    var items = (dayData && dayData.items) ? dayData.items : [];
+    var sourceItems = items.filter(function (it) { return it.category === state.activeSection && it.panel === "source"; });
+    var outsideItems = items.filter(function (it) { return it.category === state.activeSection && it.panel === "outside"; });
+
+    wrap.appendChild(panelBlock("From the source", sourceItems));
+    wrap.appendChild(panelBlock("Outside coverage", outsideItems));
+
+    area.appendChild(wrap);
+  }
+
+  function renderFooter() {
+    loadSources().then(function (sources) {
+      var approved = sources.filter(function (s) { return s.status === "approved"; });
+      var byName = {};
+      approved.forEach(function (s) {
+        if (!byName[s.name]) byName[s.name] = s.url;
+      });
+      var el = document.getElementById("sources-list");
+      el.innerHTML = "";
+      Object.keys(byName).sort().forEach(function (name) {
+        var a = document.createElement("a");
+        a.href = byName[name];
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = name;
+        el.appendChild(a);
+      });
+    });
+  }
+
+  // ---------- navigation ----------
+
+  function goToDate(dateStr) {
+    state.currentDate = dateStr;
+    document.getElementById("date-picker").value = dateStr;
+    loadDay(dateStr).then(function () {
+      renderWeekdayStrip();
+      renderPanels();
+    });
+  }
+
+  function shiftDay(delta) {
+    var d = state.currentDate;
+    do {
+      d = addDays(d, delta);
+    } while (isWeekend(d));
+    goToDate(d);
+  }
+
+  // ---------- theme ----------
+
+  function applyTheme() {
+    if (state.theme === "light") {
+      document.documentElement.setAttribute("data-theme", "light");
+      document.getElementById("theme-toggle").textContent = "Dark mode";
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+      document.getElementById("theme-toggle").textContent = "Light mode";
+    }
+  }
+
+  // ---------- export ----------
+
+  function mergedDay(dateStr) {
+    var raw = state.dayCache[dateStr];
+    if (!raw) return null;
+    var copy = JSON.parse(JSON.stringify(raw));
+    copy.items = copy.items.map(function (item) {
+      var sess = state.session[item.id];
+      return Object.assign({}, item, {
+        checked: !!(sess && sess.checked),
+        note: (sess && sess.note) || ""
+      });
+    });
+    return copy;
+  }
+
+  function downloadJSON(filename, obj) {
+    var blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function exportDay() {
+    var merged = mergedDay(state.currentDate);
+    if (!merged) { alert("No file loaded for this day."); return; }
+    downloadJSON(state.currentDate + ".json", merged);
+  }
+
+  function exportRange() {
+    var from = document.getElementById("range-from").value;
+    var to = document.getElementById("range-to").value;
+    if (!from || !to) { alert("Pick both a from and to date."); return; }
+    var dates = [];
+    var d = from;
+    while (d <= to) {
+      if (!isWeekend(d)) dates.push(d);
+      d = addDays(d, 1);
+    }
+    Promise.all(dates.map(loadDay)).then(function () {
+      var days = dates.map(mergedDay).filter(Boolean);
+      downloadJSON("range_" + from + "_to_" + to + ".json", { from: from, to: to, days: days });
+    });
+  }
+
+  // ---------- init ----------
+
+  function init() {
+    applyTheme();
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      state.theme = state.theme === "light" ? "dark" : "light";
+      applyTheme();
+    });
+
+    document.getElementById("prev-day").addEventListener("click", function () { shiftDay(-1); });
+    document.getElementById("next-day").addEventListener("click", function () { shiftDay(1); });
+    document.getElementById("today-btn").addEventListener("click", function () { goToDate(easternToday()); });
+    document.getElementById("date-picker").addEventListener("change", function (e) {
+      if (e.target.value) goToDate(e.target.value);
+    });
+    document.getElementById("export-day").addEventListener("click", exportDay);
+    document.getElementById("export-range").addEventListener("click", exportRange);
+
+    renderTabs();
+    renderTagFilters();
+    renderFooter();
+
+    var today = easternToday();
+    var weekdays = lastNWeekdays(today, 5);
+    document.getElementById("range-from").value = weekdays[0];
+    document.getElementById("range-to").value = weekdays[weekdays.length - 1];
+
+    loadIndex().then(function () {
+      var start = state.index.length ? state.index[state.index.length - 1].date : today;
+      goToDate(start);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+})();
+</script>
+</body>
+</html>

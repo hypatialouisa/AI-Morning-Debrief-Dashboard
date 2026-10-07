@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-07",
+  "generated_at": "2026-10-07T10:35:00-04:00",
+  "window": {
+    "start": "2026-10-06T08:00:00-04:00",
+    "end": "2026-10-07T10:21:05-04:00"
+  },
+  "backfilled": false,
+  "source_status": [
+    { "source": "legora-newsroom", "ok": true, "note": "Reachable, nothing new in the window. Most recent item is Sept 29." },
+    { "source": "openai-news", "ok": false, "note": "Blocked with HTTP 403 on direct fetch, consistent with build step 1. Web search for this window surfaced nothing with a confirmed date." },
+    { "source": "chatgpt-release-notes", "ok": true, "note": "Reachable via search, nothing new in the window." },
+    { "source": "status-openai", "ok": true, "note": "No incidents or maintenance in the window." },
+    { "source": "anthropic-news", "ok": true, "note": "" },
+    { "source": "claude-release-notes", "ok": true, "note": "Most recent entry is Oct 5, outside the window." },
+    { "source": "status-claude", "ok": true, "note": "" },
+    { "source": "anthropic-prompting-guide", "ok": true, "note": "Static reference doc, no change detected." },
+    { "source": "openai-prompting-guide", "ok": true, "note": "Static reference doc, not re-checked this run." },
+    { "source": "the-verge", "ok": false, "note": "Fetch blocked, same as build step 1." },
+    { "source": "ars-technica", "ok": false, "note": "Fetch blocked." },
+    { "source": "mit-technology-review", "ok": true, "note": "Reachable, topic page didn't surface dated articles for this window." },
+    { "source": "techcrunch", "ok": true, "note": "Reachable, nothing about our three platforms in the window." },
+    { "source": "venturebeat", "ok": true, "note": "" },
+    { "source": "artificial-lawyer", "ok": true, "note": "" },
+    { "source": "legal-it-insider", "ok": true, "note": "One item (CEO removal story) skipped as not AI-related." },
+    { "source": "ethan-mollick", "ok": true, "note": "Reachable, couldn't confirm a dated post for this window." },
+    { "source": "simon-willison", "ok": true, "note": "" },
+    { "source": "stanford-hai", "ok": true, "note": "Most recent item is Oct 1, outside the window." }
+  ],
+  "items": [
+    {
+      "id": "1819fc9ae45d",
+      "category": "claude",
+      "panel": "source",
+      "source_name": "Anthropic",
+      "title": "Elevated errors for Claude Opus 5.5",
+      "url": "https://status.claude.com/#opus-5.5-2026-10-06",
+      "published_at": "2026-10-06T08:24:00-04:00",
+      "type_tag": "Outage",
+      "summary": "A brief incident affecting requests to Claude Opus 5.5 was identified and resolved within about 20 minutes. No individual incident permalink was available, linked to the main status page."
+    },
+    {
+      "id": "318f20133fc0",
+      "category": "claude",
+      "panel": "source",
+      "source_name": "Anthropic",
+      "title": "Elevated errors loading usage data on platform.claude.com",
+      "url": "https://status.claude.com/#usage-data-2026-10-06",
+      "published_at": "2026-10-06T21:20:00-04:00",
+      "type_tag": "Outage",
+      "summary": "Users saw errors retrieving usage information on the Claude Console for about an hour in the evening. Resolved the same night. Linked to the main status page, no individual incident permalink was available."
+    },
+    {
+      "id": "8d51208e9a34",
+      "category": "claude",
+      "panel": "source",
+      "source_name": "Anthropic",
+      "title": "Elevated errors on platform.claude.com (ongoing)",
+      "url": "https://status.claude.com",
+      "published_at": "2026-10-07T09:25:00-04:00",
+      "type_tag": "Outage",
+      "summary": "Anthropic is investigating elevated errors affecting the Usage page and Admin API usage reporting, first reported shortly before 9:30am Eastern. Still listed as investigating as of this run."
+    },
+    {
+      "id": "a22a6ca92e5c",
+      "category": "claude",
+      "panel": "source",
+      "source_name": "Anthropic",
+      "title": "Expanding the Cyber Verification Program",
+      "url": "https://www.anthropic.com/news/cyber-verification-program",
+      "published_at": "2026-10-06T12:00:00-04:00",
+      "type_tag": "Feature",
+      "summary": "Anthropic expanded a program giving vetted security professionals tiered access to Claude with reduced safety restrictions for defensive cybersecurity work. Exact time of day wasn't shown on the page, only the date."
+    },
+    {
+      "id": "38820d1a2bc4",
+      "category": "claude",
+      "panel": "outside",
+      "source_name": "VentureBeat",
+      "title": "You can now open Claude directly in Google Docs, Sheets and Slides",
+      "url": "https://venturebeat.com/technology/you-can-now-open-claude-directly-in-google-docs-sheets-and-slides-and-vice-versa-open-and-edit-the-files-in-claude",
+      "published_at": "2026-10-06T22:07:00-04:00",
+      "type_tag": "Feature",
+      "summary": "Anthropic launched a first-party Claude integration for Google Workspace, letting Claude read and edit Docs, Sheets, and Slides from a sidebar, positioned as a direct alternative to Gemini inside Google's own apps."
+    },
+    {
+      "id": "94a0dddcb5f9",
+      "category": "chatgpt",
+      "panel": "outside",
+      "source_name": "VentureBeat",
+      "title": "Atlassian deepens its OpenAI partnership with a spend commitment",
+      "url": "https://venturebeat.com/orchestration/atlassian-deepens-its-openai-partnership-with-a-spend-commitment-but-its-platform-stays-firmly-multi-model",
+      "published_at": "2026-10-06T09:17:00-04:00",
+      "type_tag": "Feature",
+      "summary": "Atlassian committed spend to OpenAI and added GPT-6 Astra to its platform, while rebuilding its MCP server to expose over 220 tools with better permissioning. The company says it is staying multi-model rather than committing exclusively to OpenAI."
+    },
+    {
+      "id": "3b4e2ebb65a2",
+      "category": "legora",
+      "panel": "outside",
+      "source_name": "Artificial Lawyer",
+      "title": "Legora Launches 250+ Skills For Legal Agents",
+      "url": "https://www.artificiallawyer.com/2026/10/07/legora-launches-250-skills-for-legal-agents/",
+      "published_at": "2026-10-07T12:00:00-04:00",
+      "type_tag": "Feature",
+      "summary": "Legora shipped a Skills feature letting lawyers encode standardized workflows as reusable instructions for its legal agent, with over 250 pre-built skills teams can use as-is or customize. Only a publish date, not a time, was shown on the page."
+    },
+    {
+      "id": "285875225595",
+      "category": "legal_ai_practice",
+      "panel": "outside",
+      "source_name": "Artificial Lawyer",
+      "title": "Spellbook's Autonomous Contract Management on General Release",
+      "url": "https://www.artificiallawyer.com/2026/10/07/spellbooks-autonomous-contract-management-on-general-release/",
+      "published_at": "2026-10-07T12:00:00-04:00",
+      "type_tag": "Feature",
+      "summary": "Spellbook moved its Autonomous Contract Management system to general availability, automating contract intake, diagnostic review against a team's own standards, negotiation workflow, and storage in a searchable repository."
+    },
+    {
+      "id": "715936ee9366",
+      "category": "legal_ai_practice",
+      "panel": "outside",
+      "source_name": "Artificial Lawyer",
+      "title": "Pilot5 Launches Adversarial AI for Lawyers",
+      "url": "https://www.artificiallawyer.com/2026/10/07/pilot5-launches-adversarial-ai-for-lawyers/",
+      "published_at": "2026-10-07T12:00:00-04:00",
+      "type_tag": "Feature",
+      "summary": "Pilot5 released a tool that runs five frontier models in a debate format, with one model assigned to challenge the emerging consensus, then synthesizes a recommendation that keeps the strongest counterargument visible. A full run costs about $7 and takes about 15 minutes."
+    },
+    {
+      "id": "ffe2d9bc7518",
+      "category": "legal_ai_practice",
+      "panel": "outside",
+      "source_name": "Artificial Lawyer",
+      "title": "Ivo Launches Open-Source DeepSeek Contract AI Model",
+      "url": "https://www.artificiallawyer.com/2026/10/07/ivo-launches-open-source-deepseek-contract-ai-model/",
+      "published_at": "2026-10-07T12:00:00-04:00",
+      "type_tag": "Feature",
+      "summary": "Ivo released Sage, an open-source contract-review model fine-tuned from DeepSeek V4 Flash with River AI, claiming 91% accuracy on legal benchmarks at a fraction of the cost of comparable frontier models, and built to be customizable on a firm's own data."
+    },
+    {
+      "id": "b85f2d4a2e5f",
+      "category": "legal_ai_practice",
+      "panel": "outside",
+      "source_name": "Artificial Lawyer",
+      "title": "LawVu Launches Lens, a Total Contract AI Capability",
+      "url": "https://www.artificiallawyer.com/2026/10/07/lawvu-launches-lens-total-contract-ai-capability/",
+      "published_at": "2026-10-07T12:00:00-04:00",
+      "type_tag": "Feature",
+      "summary": "LawVu released Lens, which analyzes an entire contract portfolio at once to surface risks and obligations, letting in-house teams ask natural-language questions with citations back to the source documents."
+    },
+    {
+      "id": "c418f92307f0",
+      "category": "legal_ai_practice",
+      "panel": "outside",
+      "source_name": "Legal IT Insider",
+      "title": "Inside iManage's next-generation platform",
+      "url": "https://legaltechnology.com/product-demo-inside-imanages-next-generation-platform/",
+      "published_at": "2026-10-06T12:00:00-04:00",
+      "type_tag": "Feature",
+      "summary": "iManage's next-generation platform centers on a 'context fabric' that lets AI agents search documents and run standardized workflows, while letting firms switch environments without a data migration and keep governance controls over what the agents do."
+    },
+    {
+      "id": "6df10befaa2a",
+      "category": "legal_ai_practice",
+      "panel": "outside",
+      "source_name": "Legal IT Insider",
+      "title": "Security Report: Beyond the perimeter, AI is rewriting the rules",
+      "url": "https://legaltechnology.com/legal-it-insider-security-report-beyond-the-perimeter-ai-is-rewriting-the-rules/",
+      "published_at": "2026-10-06T12:00:00-04:00",
+      "type_tag": "Research",
+      "summary": "A Legal IT Insider security report argues perimeter-based security models no longer hold up once AI is embedded in firm workflows, and that individual lawyers have become both the biggest risk and the most important control point."
+    },
+    {
+      "id": "f66486df2fd5",
+      "category": "best_practices",
+      "panel": "outside",
+      "source_name": "Simon Willison's blog",
+      "title": "Scrimshaw Jukebox",
+      "url": "https://simonwillison.net/2026/Oct/6/scrimshaw-jukebox/",
+      "published_at": "2026-10-06T18:17:00-04:00",
+      "type_tag": "Research",
+      "summary": "Simon Willison tested Claude Opus 5.5's ability to compose game music in a custom text format with a web player, producing six adventure-game-style tracks as a practical test of the model's creative generation skills."
+    },
+    {
+      "id": "bc657e1acdd7",
+      "category": "best_practices",
+      "panel": "outside",
+      "source_name": "Simon Willison's blog",
+      "title": "llm-openai-decisions 0.1a0",
+      "url": "https://simonwillison.net/2026/Oct/6/llm-openai-decisions/",
+      "published_at": "2026-10-07T02:04:00-04:00",
+      "type_tag": "Feature",
+      "summary": "Simon Willison released a plugin for his `llm` command-line tool implementing OpenAI's Decisions API through GPT-6 Luna, supporting image input and three question formats for structured decision-making workflows."
+    }
+  ]
+}

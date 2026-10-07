@@ -24,14 +24,15 @@
     --color-bg-dark: #170310;
     --color-bg-light: #F4F1F8;
     --color-lavender: #A59FF7;
-    --color-indigo: #5B6EE6;
-    --color-indigo-deep: #475CE3;
     --color-crimson: #A40045;
     --color-crimson-bright: #F50067;
-    --color-berry: #660935;
-    --color-amber: #CC7A3A;
-    --color-gold: #D9A23D;
-    --color-emerald: #3F8F6B;
+    --color-blue: #1C64F2;
+    --color-blue-bright: #3777F4;
+    --color-blue-deep: #145EF2;
+    --color-beige: #C2A572;
+    --color-orange: #E35D0F;
+    --color-gold: #EDA711;
+    --color-teal: #128F82;
     --color-dark-gray: #6E5F68;
     --color-mid-gray: #9A8792;
     --color-light-gray: #DCD5DE;
@@ -41,11 +42,11 @@
     --text: var(--color-white);
     --text-secondary: var(--color-mid-gray);
     --accent: var(--color-crimson);
-    --accent-hover: var(--color-indigo);
+    --accent-hover: var(--color-blue);
     --accent-text: var(--color-white);
-    --accent-hover-text: var(--color-black);
+    --accent-hover-text: var(--color-white);
     --link: var(--color-crimson-bright);
-    --link-hover: var(--color-lavender);
+    --link-hover: var(--color-blue-bright);
   }
   :root[data-theme="light"] {
     --bg: var(--color-bg-light);
@@ -53,11 +54,11 @@
     --text: var(--color-black);
     --text-secondary: var(--color-dark-gray);
     --accent: var(--color-crimson);
-    --accent-hover: var(--color-indigo);
+    --accent-hover: var(--color-blue);
     --accent-text: var(--color-white);
-    --accent-hover-text: var(--color-black);
+    --accent-hover-text: var(--color-white);
     --link: var(--color-crimson);
-    --link-hover: var(--color-indigo-deep);
+    --link-hover: var(--color-blue-deep);
   }
 
   * { box-sizing: border-box; }
@@ -160,7 +161,7 @@
 
   .notice {
     background: var(--bg-raised);
-    border-left: 3px solid var(--color-amber);
+    border-left: 3px solid var(--color-orange);
     color: var(--text);
     border-radius: 4px;
     padding: 8px 12px;
@@ -204,6 +205,17 @@
     text-decoration: underline;
     text-underline-offset: 2px;
   }
+  .tag-select-all {
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    background: var(--bg-raised);
+    color: var(--text);
+    border: none;
+    font-family: inherit;
+  }
+  .tag-select-all:hover { background: var(--accent-hover); color: var(--accent-hover-text); }
 
   .panels {
     display: grid;
@@ -254,12 +266,12 @@
     margin-bottom: 6px;
   }
   .tag-Feature   { background: var(--color-crimson); }
-  .tag-Outage    { background: var(--color-amber); color: var(--color-black) !important; }
+  .tag-Outage    { background: var(--color-orange); color: var(--color-black) !important; }
   .tag-Pricing   { background: var(--color-gold); color: var(--color-black) !important; }
-  .tag-Policy    { background: var(--color-indigo); color: var(--color-black) !important; }
-  .tag-Legal     { background: var(--color-berry); }
+  .tag-Policy    { background: var(--color-blue); }
+  .tag-Legal     { background: var(--color-beige); color: var(--color-black) !important; }
   .tag-Research  { background: var(--color-lavender); color: var(--color-black) !important; }
-  .tag-Opinion   { background: var(--color-emerald); color: var(--color-black) !important; }
+  .tag-Opinion   { background: var(--color-teal); color: var(--color-black) !important; }
 
   .item-title { font-size: 1rem; font-weight: 700; margin: 0 0 4px; }
   .item-title a { color: var(--text); }
@@ -465,14 +477,24 @@
   function renderTagFilters() {
     var el = document.getElementById("tag-filters");
     el.innerHTML = "";
+
+    var allActive = TAGS.every(function (tag) { return !!state.activeTags[tag]; });
+    var selectAllBtn = document.createElement("button");
+    selectAllBtn.className = "tag-select-all";
+    selectAllBtn.textContent = allActive ? "Clear all" : "Select all";
+    selectAllBtn.addEventListener("click", function () {
+      var turnOn = !allActive;
+      TAGS.forEach(function (tag) { state.activeTags[tag] = turnOn; });
+      renderTagFilters();
+      renderPanels();
+    });
+    el.appendChild(selectAllBtn);
+
     TAGS.forEach(function (tag) {
       var btn = document.createElement("button");
       var active = !!state.activeTags[tag];
       btn.className = "tag-filter tag-" + tag + (active ? " active" : "");
       btn.textContent = tag;
-      if (active) {
-        // use the chip's own background color when active
-      }
       btn.addEventListener("click", function () {
         state.activeTags[tag] = !state.activeTags[tag];
         renderTagFilters();

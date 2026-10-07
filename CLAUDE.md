@@ -221,7 +221,7 @@ One self-contained file. Plain HTML, CSS, and JavaScript. No external scripts, f
 - A strip of the last 10 weekdays. Days with a file show filled. Days with no file show empty. This makes gaps visible.
 - Five section tabs. Each tab shows two panels, visually separate but side by side: "From the source" and "Outside coverage."
 - Each item shows: type tag, title linked to the source, source name, publish time, summary, a checkbox, and a note field.
-- Filter by type tag across the current day.
+- Filter by type tag across the current day, plus a "Select all" control that marks every tag active in one click (and clears them all if every tag is already active).
 - Show `source_status` failures in a small notice at the top of the day.
 - Newest items first within each panel.
 - No second link on the source name, the title link to the specific article is enough.
@@ -247,9 +247,9 @@ A personal color and type palette, not tied to any company's brand guidelines.
 
 ### Color tokens
 
-Sampled directly from a reference palette the user provided (an "Onyx Design" swatch set: Lavender Mist, Midnight Indigo, Crimson Bloom, Berry Noir, Deep Merlot, darkest to lightest), plus three new jewel-toned additions (amber, gold, emerald) picked to sit in the same rich, slightly desaturated register rather than bright neon. The dark background is darker than the original Deep Merlot swatch, close to black with just a trace of wine in it, by request.
+Started from a reference palette the user provided (an "Onyx Design" swatch set: Lavender Mist, Midnight Indigo, Crimson Bloom, Berry Noir, Deep Merlot), then revised per feedback: Policy and the shared hover-highlight color moved from Midnight Indigo to a vibrant blue, Legal moved from Berry Noir (too close to the background family) to a beige, Opinion moved from a yellow-green emerald to a blue-leaning teal, and Outage/Pricing both got more saturated. Crimson Bloom and Lavender Mist stayed from the original swatch set. The dark background is close to black with just a trace of wine in it.
 
-Every pairing below is checked against WCAG 2.1 AA (4.5:1 for normal text, 3:1 for large text and UI fills). Where a single swatch couldn't pass on both the dark and light canvas, there are two values, one per mode, both still clearly the same hue family.
+Every pairing below is checked against WCAG 2.1 AA (4.5:1 for normal text, 3:1 for large text and UI fills). Where a single hue couldn't pass on both the dark and light canvas, there are two values, one per mode, both still clearly the same hue family.
 
 ```css
 :root {
@@ -258,14 +258,15 @@ Every pairing below is checked against WCAG 2.1 AA (4.5:1 for normal text, 3:1 f
   --color-bg-dark: #170310;
   --color-bg-light: #F4F1F8;
   --color-lavender: #A59FF7;
-  --color-indigo: #5B6EE6;
-  --color-indigo-deep: #475CE3;
   --color-crimson: #A40045;
   --color-crimson-bright: #F50067;
-  --color-berry: #660935;
-  --color-amber: #CC7A3A;
-  --color-gold: #D9A23D;
-  --color-emerald: #3F8F6B;
+  --color-blue: #1C64F2;
+  --color-blue-bright: #3777F4;
+  --color-blue-deep: #145EF2;
+  --color-beige: #C2A572;
+  --color-orange: #E35D0F;
+  --color-gold: #EDA711;
+  --color-teal: #128F82;
   --color-dark-gray: #6E5F68;
   --color-mid-gray: #9A8792;
   --color-light-gray: #DCD5DE;
@@ -285,11 +286,11 @@ Dark is the default on load. A toggle in the header switches to light. Like chec
   --text: var(--color-white);
   --text-secondary: var(--color-mid-gray);
   --accent: var(--color-crimson);
-  --accent-hover: var(--color-indigo);
+  --accent-hover: var(--color-blue);
   --accent-text: var(--color-white);
-  --accent-hover-text: var(--color-black);
+  --accent-hover-text: var(--color-white);
   --link: var(--color-crimson-bright);
-  --link-hover: var(--color-lavender);
+  --link-hover: var(--color-blue-bright);
 }
 :root[data-theme="light"] {
   --bg: var(--color-bg-light);
@@ -297,19 +298,19 @@ Dark is the default on load. A toggle in the header switches to light. Like chec
   --text: var(--color-black);
   --text-secondary: var(--color-dark-gray);
   --accent: var(--color-crimson);
-  --accent-hover: var(--color-indigo);
+  --accent-hover: var(--color-blue);
   --accent-text: var(--color-white);
-  --accent-hover-text: var(--color-black);
+  --accent-hover-text: var(--color-white);
   --link: var(--color-crimson);
-  --link-hover: var(--color-indigo-deep);
+  --link-hover: var(--color-blue-deep);
 }
 body { background: var(--bg); color: var(--text); }
 ```
 
 Two different jobs were getting tangled under one "accent" idea, which is what caused the contrast failures: a color used as a **fill** (a button or chip's background, with white or black text on top of it) has a totally different contrast requirement than a color used **as text** directly on the page background. So they're split:
 
-- `--accent` / `--accent-hover`: fill colors only (Crimson Bloom, Midnight Indigo), same in both modes, always paired with `--accent-text` / `--accent-hover-text` so the label on top is always legible. White text on Crimson Bloom passes at 7.9:1; Midnight Indigo needs black text on it, not white, to clear 4.5:1.
-- `--link` / `--link-hover`: for a plain colored link or hover state sitting directly on the page canvas. Crimson Bloom itself fails badly as text on the dark canvas (2.5:1), so dark mode uses a brightened version instead. Midnight Indigo fails as text on the light canvas (3.9:1), so light mode uses a deepened version instead. Lavender Mist already passes beautifully as dark-mode hover text (8.4:1), no adjustment needed there.
+- `--accent` / `--accent-hover`: fill colors only (Crimson Bloom, the vibrant blue), same in both modes, always paired with `--accent-text` / `--accent-hover-text` so the label on top is always legible. White text passes on both: 7.9:1 on Crimson Bloom, 5.1:1 on the blue.
+- `--link` / `--link-hover`: for a plain colored link or hover state sitting directly on the page canvas. Crimson Bloom itself fails badly as text on the dark canvas (2.5:1), so dark mode uses a brightened version instead. The blue fails as text on both canvases at full strength, so each mode gets its own adjusted version (brightened for dark, deepened for light), both still clearly the same blue.
 - `--text-secondary`: meta text, captions, muted labels. A single gray can't clear 4.5:1 against both a near-black and a near-white canvas, so this reuses Mid Gray in dark mode and Dark Gray in light mode, both already in the palette.
 
 **Typography:** Montserrat, self-hosted. Woff2 files live in `/fonts` in the repo, added in build step 4, not loaded from Google's CDN, so the page keeps working if that's blocked. Falls back to system sans-serif if the font file fails to load.
@@ -333,9 +334,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   font-weight: 700;
 }
-a { color: var(--accent); }
-a:hover { color: var(--accent-hover); }
-a:focus { color: var(--accent); text-decoration: underline; }
+a { color: var(--link); }
+a:hover { color: var(--link-hover); }
+a:focus { color: var(--link); text-decoration: underline; }
 ```
 
 ### UI components
@@ -360,16 +361,16 @@ Text color is whichever of black or white actually clears 4.5:1 against that fil
 | Tag | Color | Text |
 |---|---|---|
 | Feature | Crimson Bloom (`#A40045`) | White (7.9:1) |
-| Outage | Amber (`#CC7A3A`) | Black (6.4:1) |
-| Pricing | Gold (`#D9A23D`) | Black (9.2:1) |
-| Policy | Midnight Indigo (`#5B6EE6`) | Black (4.8:1) |
-| Legal | Berry Noir (`#660935`) | White (12.7:1) |
+| Outage | Orange (`#E35D0F`) | Black (5.8:1) |
+| Pricing | Gold (`#EDA711`) | Black (10.1:1) |
+| Policy | Blue (`#1C64F2`) | White (5.1:1) |
+| Legal | Beige (`#C2A572`) | Black (8.9:1) |
 | Research | Lavender Mist (`#A59FF7`) | Black (8.9:1) |
-| Opinion | Emerald (`#3F8F6B`) | Black (5.4:1) |
+| Opinion | Teal (`#128F82`) | Black (5.3:1) |
 
 ### Charts
 
-If any are added later: cycle colors in this order: Crimson Bloom, Midnight Indigo, Gold, Amber, Emerald, Lavender Mist, Berry Noir. Use Crimson Bloom plus Gold for two series.
+If any are added later: cycle colors in this order: Crimson Bloom, Blue, Gold, Orange, Teal, Lavender Mist, Beige. Use Crimson Bloom plus Gold for two series.
 
 ## Build order
 

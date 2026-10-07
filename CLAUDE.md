@@ -10,7 +10,7 @@ The dashboard itself is a browsing and capture tool: browse by day, section, and
 
 The weekly newsletter draft is written outside this project, using Claude Cowork on a separate computer. Checking items and jotting notes happens in the dashboard itself; only the final drafting step moves to Cowork. See "Weekly notes and summary" below. This project's job stops at collecting items, publishing the dashboard, and letting you export what you've flagged.
 
-Repo: https://github.com/hypatialouisa/AI-Morning-Debrief-Dashboard (public). Push access from this machine isn't set up yet; needed before build step 5.
+Repo: https://github.com/hypatialouisa/AI-Morning-Debrief-Dashboard (public). Live at https://hypatialouisa.github.io/AI-Morning-Debrief-Dashboard/dashboard.html, hosted on GitHub Pages from the `main` branch root.
 
 ## Folder layout
 
@@ -406,5 +406,4 @@ If any are added later: cycle colors in this order: Crimson Bloom, Midnight Indi
 
 ## Open items
 
-- Confirm scheduling method (build step 3).
-- Set up push access to the GitHub repo from this machine (build step 5, done, `gh auth login` completed).
+- None currently. Next up is build step 6, the first real collector run.

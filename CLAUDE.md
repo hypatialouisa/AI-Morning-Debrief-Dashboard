@@ -380,10 +380,10 @@ If any are added later: cycle colors in this order: Crimson Bloom, Blue, Gold, O
 4. **Dashboard.** Build `dashboard.html` to the page spec and visual style. Test with the sample files.
 5. **Publish and test.** Push to a GitHub repo, enable Pages, confirm the hosted page loads the sample data correctly, including on a phone.
 6. **First real run.** Run the collector by hand. Review every item with the user. Check for bad dates, missing URLs, and sources that failed.
-7. **Gap test.** Delete one sample day's file and its index entry. Run the collector. Confirm it detects and fills the gap.
+7. **Gap test.** Delete a real archived day's file and its index entry. Run the collector. Confirm it detects and fills the gap. (Originally planned against a sample file, but samples were removed early, see step 10.)
 8. **Schedule.** Set up the chosen schedule for 8:00 AM Eastern, weekdays.
 9. **Weekly test.** Check a few items and add notes on the dashboard, export a week's range, feed it to Cowork, and ask for the summary. Confirm it reads cleanly for email.
-10. **Remove samples.** Delete the sample files before real use.
+10. **Remove samples.** Done early, out of order: the two sample files (Oct 5, Oct 6) were confusing on the live site (their `example.com` links go to a registrar notice page) and real data already existed for Oct 7, so they were deleted right after step 6 rather than waiting for the end of the build.
 
 ## Constraints and cautions
 
